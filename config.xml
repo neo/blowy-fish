@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" id = "com.sheridan.imm.collective" version = "1.0.0">
+	<name>Blowy Fish</name>
+	<description>Just another Flappy Bird, yet different.</description>
+	<icon src="assets/icon.png" />
+	<icon src="assets/icon.png" platform="ios" width="180" height="180" />
+	<splash src="assets/splash.png" />
+	<splash src="assets/landscape.png" platform="ios" width="1334" height="750" />
+	<splash src="assets/splash.png" platform="ios" width="750" height="1334" />
+	<preference name="orientation" value="landscape" />
+	<preference name="fullscreen" value="true" />
+	<preference name="DisallowOverscroll" value="true" />
+</widget>
