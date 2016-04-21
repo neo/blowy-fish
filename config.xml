@@ -4,6 +4,7 @@
 	<description>Just another Flappy Bird, yet different.</description>
 	<icon src="assets/icon.png" platform="ios" width="180" height="180" />
 	<splash src="assets/landscape.png" platform="ios" width="1334" height="750" />
+	<splash src="assets/landscape.png" />
 	<preference name="orientation" value="landscape" />
 	<preference name="fullscreen" value="true" />
 	<preference name="DisallowOverscroll" value="true" />
