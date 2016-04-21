@@ -22,8 +22,7 @@ window.addEventListener('load', function() {
 	// 	sand.scaleY = 1.1 * h / sand.getBounds().height;
 	// 	sand.y = 0.9 * h;
 	// 	container.addChild(sand);
-		stage.update();
-	// 	createjs.Ticker.addEventListener("tick", stage);
+		createjs.Ticker.addEventListener("tick", stage);
 	// 	var start, y, isON = false;
 	// 	stage.addEventListener('mousedown', function(e) {
 	// 		start = e.stageY;
