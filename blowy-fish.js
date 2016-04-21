@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
 	canvas.setAttribute('width', window.innerWidth);
 	canvas.setAttribute('height', window.innerHeight);
 	var stage = new createjs.Stage('canvas');
-	// createjs.Touch.disable(stage, true); // Enables single touch interaction
+	createjs.Touch.enable(stage, true); // Enables single touch interaction
 	var w = stage.canvas.width;
 	var h = stage.canvas.height;
 	// var queue = new createjs.LoadQueue();
