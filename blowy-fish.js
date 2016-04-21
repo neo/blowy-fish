@@ -6,22 +6,22 @@ window.addEventListener('load', function() {
 	// createjs.Touch.disable(stage, true); // Enables single touch interaction
 	var w = stage.canvas.width;
 	var h = stage.canvas.height;
-	// var queue = new createjs.LoadQueue();
-	// queue.loadManifest([
-	// 	{id:'sand', src:'assets/sand.jpg'}
-	// ]);
-	// queue.on('complete', function() {
+	var queue = new createjs.LoadQueue();
+	queue.loadManifest([
+		{id:'sand', src:'assets/sand.jpg'}
+	]);
+	queue.on('complete', function() {
 		var container = new createjs.Container();
 		var water = new createjs.Shape();
 		water.graphics.f('#81D4FA').dr(0,0,w,2*h);
 		container.y = -h;
 		container.addChild(water);
 		stage.addChild(container);
-	// 	var sand = new createjs.Bitmap(queue.getResult('sand'));
-	// 	sand.scaleX = w / sand.getBounds().width;
-	// 	sand.scaleY = 1.1 * h / sand.getBounds().height;
-	// 	sand.y = 0.9 * h;
-	// 	container.addChild(sand);
+		var sand = new createjs.Bitmap(queue.getResult('sand'));
+		sand.scaleX = w / sand.getBounds().width;
+		sand.scaleY = 1.1 * h / sand.getBounds().height;
+		sand.y = 0.9 * h;
+		container.addChild(sand);
 		createjs.Ticker.addEventListener("tick", stage);
 		var start, y, isON = false;
 		stage.addEventListener('mousedown', function(e) {
@@ -45,5 +45,5 @@ window.addEventListener('load', function() {
 					isON = false;
 				});
 		});
-	// });
+	});
 });
