@@ -23,27 +23,27 @@ window.addEventListener('load', function() {
 	// 	sand.y = 0.9 * h;
 	// 	container.addChild(sand);
 		createjs.Ticker.addEventListener("tick", stage);
-	// 	var start, y, isON = false;
-	// 	stage.addEventListener('mousedown', function(e) {
-	// 		start = e.stageY;
-	// 		y = container.y;
-	// 	});
-	// 	stage.addEventListener('pressmove', function(e) {
-	// 		var diff = e.stageY - start;
-	// 		if (y + diff >= -h && y + diff <=0 && !isON) {
-	// 			container.y = y + diff;
-	// 			stage.update();
-	// 		}
-	// 	});
-	// 	stage.addEventListener('pressup', function(e) {
-	// 		if (!isON) (e.stageY - start > 0.25 * h)?
-	// 		createjs.Tween.get(container).to({y:0}, 500).call(function() {
-	// 			isON = true;
-	// 		}) : createjs.Tween.get(container).to({y:-h}, 500);
-	// 		else if (e.stageY - start < -0.5 * h)
-	// 			createjs.Tween.get(container).to({y:-h}, 500).call(function() {
-	// 				isON = false;
-	// 			});
-	// 	});
+		var start, y, isON = false;
+		stage.addEventListener('mousedown', function(e) {
+			start = e.stageY;
+			y = container.y;
+		});
+		stage.addEventListener('pressmove', function(e) {
+			var diff = e.stageY - start;
+			if (y + diff >= -h && y + diff <=0 && !isON) {
+				container.y = y + diff;
+				stage.update();
+			}
+		});
+		stage.addEventListener('pressup', function(e) {
+			if (!isON) (e.stageY - start > 0.25 * h)?
+			createjs.Tween.get(container).to({y:0}, 500).call(function() {
+				isON = true;
+			}) : createjs.Tween.get(container).to({y:-h}, 500);
+			else if (e.stageY - start < -0.5 * h)
+				createjs.Tween.get(container).to({y:-h}, 500).call(function() {
+					isON = false;
+				});
+		});
 	// });
 });
