@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
 	var w = stage.canvas.width;
 	var h = stage.canvas.height;
 	var shape = new createjs.Shape();
-	shape.graphics.f('#ff5252').dr(25,25,w-50,h-50);
+	shape.graphics.f('#ff5252').dr(10,10,w-50,h-50);
 	stage.addChild(shape);
 	stage.update();
 });
