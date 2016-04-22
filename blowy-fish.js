@@ -8,6 +8,7 @@ window.addEventListener('load', function() {
 	var h = stage.canvas.height;
 	var queue = new createjs.LoadQueue(false);
 	queue.loadManifest([
+		{id:'fish', src:'assets/fish.png'},
 		{id:'sand', src:'assets/sand.jpg'}
 	]);
 	queue.on('complete', function() {
@@ -42,7 +43,10 @@ window.addEventListener('load', function() {
 			if (!isON) (e.stageY - start > 0.25 * h)?
 			createjs.Tween.get(container).to({y:0}, 500).call(function() {
 				isON = true;
-				interval = setInterval(go, 1000);
+				interval = setInterval(go, 2000);
+				fish.x = 0.2 * w;
+				fish.y = 0.4 * h;
+				container.addChild(fish);
 			}) : createjs.Tween.get(container).to({y:-h}, 500);
 			else if (e.stageY - start < -0.5 * h)
 				createjs.Tween.get(container).to({y:-h}, 500).call(function() {
@@ -53,6 +57,13 @@ window.addEventListener('load', function() {
 		});
 		var seaweed = new createjs.Container();
 		container.addChild(seaweed);
+		var fish = new createjs.Bitmap(queue.getResult('fish'));
+		stage.on('click', function() {
+			if (isON) createjs.Tween.get(fish).to({scaleY:0.5, y: fish.y - 0.2 * h}, 500).to({scaleY:1}, 500);
+		});
+		var animate = createjs.Ticker.addEventListener("tick", function() {
+			if (isON) fish.y += 0.008 * h;
+		});
 		function go() {
 			var width = 0.05 * h;
 			var height = 0.9 * h;
