@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
 	createjs.Touch.enable(stage, true); // Enables single touch interaction
 	var w = stage.canvas.width;
 	var h = stage.canvas.height;
-	var queue = new createjs.LoadQueue();
+	var queue = new createjs.LoadQueue(false);
 	queue.loadManifest([
 		{id:'sand', src:'assets/sand.jpg'}
 	]);
