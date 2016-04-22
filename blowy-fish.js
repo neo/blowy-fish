@@ -24,8 +24,9 @@ window.addEventListener('load', function() {
 		sand.scaleY = 1.1 * h / sand.getBounds().height;
 		sand.y = 0.9 * h;
 		container.addChild(sand);
-		createjs.Ticker.addEventListener("tick", stage);
-		var start, y, isON = false;
+		var ticker = createjs.Ticker.addEventListener("tick", stage);
+		ticker.framerate = 60;
+		var start, y, isON = false, interval;
 		stage.addEventListener('mousedown', function(e) {
 			start = e.stageY;
 			y = container.y;
@@ -41,11 +42,42 @@ window.addEventListener('load', function() {
 			if (!isON) (e.stageY - start > 0.25 * h)?
 			createjs.Tween.get(container).to({y:0}, 500).call(function() {
 				isON = true;
+				interval = setInterval(go, 1000);
 			}) : createjs.Tween.get(container).to({y:-h}, 500);
 			else if (e.stageY - start < -0.5 * h)
 				createjs.Tween.get(container).to({y:-h}, 500).call(function() {
 					isON = false;
+					clearInterval(interval);
+					seaweed.removeAllChildren();
 				});
 		});
+		var seaweed = new createjs.Container();
+		container.addChild(seaweed);
+		function go() {
+			var width = 0.05 * h;
+			var height = 0.9 * h;
+			var green = ['#43A047', '#388E3C', '#2E7D32'];
+			var squares = [];
+			for (var i = green.length - 1; i >= 0; i--) {
+				var g = new createjs.Graphics();
+				g.f(green[i]).dr(0,0,width/3,width/3);
+				squares.unshift(g);
+			}
+			var pair = new createjs.Container();
+			seaweed.addChild(pair);
+			var n = height / (width / 3) * 3;
+			for (var i = 0; i < n; i++) {
+				// if (Math.random() < 0.1) continue;
+				var r = Math.floor(Math.random() * squares.length);
+				var shape = new createjs.Shape(squares[r]);
+				shape.x = i % squares.length * width / 3;
+				shape.y = Math.floor(i / squares.length) * width / 3;
+				pair.addChild(shape);
+			}
+			pair.x = w;
+			createjs.Tween.get(pair).to({x:-width}, 3000).call(function() {
+				seaweed.removeChild(pair);
+			});
+		}
 	});
 });
