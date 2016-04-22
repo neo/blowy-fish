@@ -59,11 +59,12 @@ window.addEventListener('load', function() {
 		container.addChild(seaweed);
 		var fish = new createjs.Bitmap(queue.getResult('fish'));
 		stage.on('click', function() {
-			if (isON) createjs.Tween.get(fish).to({scaleY:0.5, y: fish.y - 0.2 * h}, 500).to({scaleY:1}, 500);
+			if (isON) createjs.Tween.get(fish).to({scaleY:0.5, y: fish.y + 0.2 * h}, 400).to({scaleY:1}, 100);
 		});
-		var animate = createjs.Ticker.addEventListener("tick", function() {
-			if (isON) fish.y += 0.008 * h;
+		var animate = createjs.Ticker.on("tick", function() {
+			if (isON) fish.y -= 0.6 * h / animate.framerate;
 		});
+		animate.framerate = 60;
 		function go() {
 			var width = 0.05 * h;
 			var height = 0.9 * h;
@@ -76,13 +77,14 @@ window.addEventListener('load', function() {
 			}
 			var pair = new createjs.Container();
 			seaweed.addChild(pair);
-			var n = height / (width / 3) * 3;
+			var c = 5
+			var n = height / (width / c) * c;
 			for (var i = 0; i < n; i++) {
 				// if (Math.random() < 0.1) continue;
 				var r = Math.floor(Math.random() * squares.length);
 				var shape = new createjs.Shape(squares[r]);
-				shape.x = i % squares.length * width / 3;
-				shape.y = Math.floor(i / squares.length) * width / 3;
+				shape.x = i % c * width / c;
+				shape.y = Math.floor(i / c) * width / c;
 				pair.addChild(shape);
 			}
 			pair.x = w;
