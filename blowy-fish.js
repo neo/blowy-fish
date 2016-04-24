@@ -25,6 +25,13 @@ window.addEventListener('load', function() {
 		sand.scaleY = 1.1 * h / sand.getBounds().height;
 		sand.y = 0.9 * h;
 		container.addChild(sand);
+		var instruction = 'Swipe down to start the game.\rSwipe from the bottom to end the game.';
+		var text = new createjs.Text(instruction, '64px Impact', '#fff');
+		text.textAlign = 'center';
+		text.lineHeight = '100';
+		text.x = w / 2;
+		text.y = 1.5 * h - text.getBounds().height / 2;
+		container.addChild(text);
 		var ticker = createjs.Ticker.addEventListener("tick", stage);
 		ticker.framerate = 60;
 		var start, y, isON = false, interval;
@@ -65,26 +72,34 @@ window.addEventListener('load', function() {
 			if (isON) fish.y -= 0.6 * h / animate.framerate;
 		});
 		animate.framerate = 60;
+		var width = 0.05 * h;
+		var height = 0.9 * h;
+		var c = 5
+		var green = ['#43A047', '#388E3C', '#2E7D32'];
+		var squares = [];
+		for (var i = green.length - 1; i >= 0; i--) {
+			var g = new createjs.Graphics();
+			g.f(green[i]).dr(0,0,width/c,width/c);
+			squares.unshift(g);
+		}
 		function go() {
-			var width = 0.05 * h;
-			var height = 0.9 * h;
-			var green = ['#43A047', '#388E3C', '#2E7D32'];
-			var squares = [];
-			for (var i = green.length - 1; i >= 0; i--) {
-				var g = new createjs.Graphics();
-				g.f(green[i]).dr(0,0,width/3,width/3);
-				squares.unshift(g);
-			}
 			var pair = new createjs.Container();
 			seaweed.addChild(pair);
-			var c = 5
-			var n = height / (width / c) * c;
-			for (var i = 0; i < n; i++) {
-				// if (Math.random() < 0.1) continue;
-				var r = Math.floor(Math.random() * squares.length);
-				var shape = new createjs.Shape(squares[r]);
-				shape.x = i % c * width / c;
-				shape.y = Math.floor(i / c) * width / c;
+			var upperHeight = (Math.random() * 3 + 2) / 10 * height / (width / c);
+			var upperTotal = Math.floor(upperHeight) * c;
+			for (var i = 0; i < upperTotal; i++) {
+				var shape = new createjs.Shape(squares[Math.floor(Math.random() * squares.length)]);
+				shape.x = (i % c) * (width / c);
+				shape.y = Math.floor(i / c) * (width / c);
+				pair.addChild(shape);
+			}
+			var lowerEdge = (Math.random() * 3 + 4) / 10 * height + upperHeight;
+			var lowerHeight = (height - lowerEdge) / (width / c);
+			var lowerTotal = Math.floor(lowerHeight) * c;
+			for (var i = 0; i < lowerTotal; i++) {
+				var shape = new createjs.Shape(squares[Math.floor(Math.random() * squares.length)]);
+				shape.x = (i % c) * (width / c);
+				shape.y = height - (width / c) - Math.floor(i / c) * (width / c);
 				pair.addChild(shape);
 			}
 			pair.x = w;
